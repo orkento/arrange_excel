@@ -1,17 +1,28 @@
-# arrange_excel.exe.rb
+# arrange_excel
 
-## ファイル種別
+## 概要
 
-実行ファイル
+WIN32OLEを使用してExcelのワークブックやワークシートに以下の操作を行うためのモジュールと実行ファイル
 
-## 必須
+- カーソルを左上に合わせる
+- スクロールを左上に合わせる
+- シートの拡大率を等倍にする
+- 最初のシートをアクティブにする
+
+## 実行ファイル
+
+### ファイル名
+
+arrange_excel.exe.rb
+
+### 必須
 
 - Windows OS
 - Excelアプリケーション
 - arrange_excel.rb(同じディレクトリに配置する)
 - Rubyが実行できる環境(Rubyコマンドプロンプト、Rubyを入れたCygwin等)
 
-## コマンド例
+### コマンド例
 
 ```
 ruby arrange_excel.exe.rb
