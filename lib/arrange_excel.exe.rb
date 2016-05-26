@@ -12,7 +12,8 @@ extensions = %w(xls xlsx xlsm)
 commands = argv.empty? ? ['./'] : ARGV
 
 file_names = commands.inject([]) do |files, command|
-               if File.file?(command) && extensions.map{|e| '.' + e}.include?(File.extname(command))
+
+               if File.file?(command) && extensions.include?(command.split('.').last)
                  files + Dir.glob(command)
                elsif File.directory? command
                  path = if command[-1] != '/'
@@ -20,7 +21,7 @@ file_names = commands.inject([]) do |files, command|
                         else
                           command
                         end
-                 files + Dir.glob(path + (sub_dir ? "**/" : "") + "*.{#{extensions.join(',')}}")
+                 files + Dir.glob((path + (sub_dir ? "**/" : "") + "*.{#{extensions.join(',')}}").encode('utf-8'))
                else
                  files
                end
