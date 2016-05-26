@@ -23,6 +23,7 @@ file_names = commands.inject([]) do |files, command|
                         end
                  files + Dir.glob((path + (sub_dir ? "**/" : "") + "*.{#{extensions.join(',')}}").encode('utf-8'))
                else
+                 puts "#{command} is nothing." unless command.chr == '-'
                  files
                end
              end
