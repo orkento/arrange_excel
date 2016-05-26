@@ -14,7 +14,7 @@ commands = argv.empty? ? ['./'] : ARGV
 file_names = commands.inject([]) do |files, command|
 
                if File.file?(command) && extensions.include?(command.split('.').last)
-                 files + Dir.glob(command)
+                 files + Dir.glob(command.encode('utf-8'))
                elsif File.directory? command
                  path = if command[-1] != '/'
                           command + '/'
