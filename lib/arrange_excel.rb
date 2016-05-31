@@ -14,7 +14,7 @@ module ArrangeExcel
     visible = sheet.visible
     sheet.visible = -1
     sheet.activate
-    sheet.cells(1, 1).activate
+    sheet.Range("A1").Select
     window = sheet.parent.windows(1)
     window.zoom = 100
     window.scrollRow = 1
