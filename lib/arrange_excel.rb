@@ -10,6 +10,7 @@ module ArrangeExcel
   # 左上にスクロールします
   # 拡大率を100%にします
   def arrange_worksheet!(sheet, log = false)
+    sheet.AutoFilterMode = 0
     visible = sheet.visible
     sheet.visible = -1
     sheet.activate
