@@ -12,24 +12,20 @@ module ArrangeExcel
   end
   # 左上にスクロールします
   def scroll_to_a1(sheet)
-    visible = sheet.visible
-    visible = -1
-    sheet.Activate
-    window = sheet.Parent.Windows(1)
-    window.ScrollRow = 1
-    window.ScrollColumn = 1
-    sheet.Visible = visible
+    arrange_active_sheet sheet do |s|
+      window = active_window s
+      window.ScrollRow = 1
+      window.ScrollColumn = 1
+    end
   end
   # 拡大率を100%にします
   def resize_to_100_percent(sheet)
-    visible = sheet.Visible
-    visible = -1
-    sheet.Activate
-    window = sheet.Parent.Windows(1)
-    window.Zoom = 100
-    sheet.Visible = visible
+    arrange_active_sheet sheet do |s|
+      window = active_window s
+      window.Zoom = 100
+    end
   end
-  
+  # オートフィルターを削除します
   def delete_auto_filter(sheet)
     sheet.AutoFilterMode = 0
   end
