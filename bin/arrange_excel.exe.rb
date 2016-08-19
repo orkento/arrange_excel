@@ -1,4 +1,4 @@
-require_relative 'arrange_excel.rb'
+require_relative '../lib/arrange_excel.rb'
 
 include ArrangeExcel
 
