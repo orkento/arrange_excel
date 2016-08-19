@@ -8,11 +8,11 @@ module ArrangeExcel
 
   # シートのカーソルをA1に合わせます
   def select_a1(sheet)
-    arrange_active_sheet sheet {|s| s.Range("A1".Select)}
+    arrange_active_sheet(sheet){ |s| s.Range("A1").Select }
   end
   # 左上にスクロールします
   def scroll_to_a1(sheet)
-    arrange_active_sheet sheet do |s|
+    arrange_active_sheet(sheet) do |s|
       window = active_window s
       window.ScrollRow = 1
       window.ScrollColumn = 1
@@ -20,7 +20,7 @@ module ArrangeExcel
   end
   # 拡大率を100%にします
   def resize_to_100_percent(sheet)
-    arrange_active_sheet sheet do |s|
+    arrange_active_sheet(sheet) do |s|
       window = active_window s
       window.Zoom = 100
     end
@@ -31,16 +31,10 @@ module ArrangeExcel
   end
   
   def arrange_worksheet!(sheet, log = false)
-    sheet.AutoFilterMode = 0
-    visible = sheet.visible
-    sheet.visible = -1
-    sheet.activate
-    sheet.Range("A1").Select
-    window = sheet.parent.windows(1)
-    window.zoom = 100
-    window.scrollRow = 1
-    window.scrollColumn = 1
-    sheet.visible = visible
+    select_a1 sheet
+    scroll_to_a1 sheet
+    resize_to_100_percent sheet
+    delete_auto_filter sheet
     puts("success:#{sheet.parent.name}/#{sheet.name}") if log
   end
 
@@ -50,6 +44,8 @@ module ArrangeExcel
     success = true
   rescue WIN32OLERuntimeError
     puts("failure:#{sheet.parent.name}/#{sheet.name}") if log
+  rescue => e
+    puts e
   ensure
     return success
   end
