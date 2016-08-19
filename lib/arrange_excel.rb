@@ -7,8 +7,33 @@ end
 module ArrangeExcel
 
   # シートのカーソルをA1に合わせます
+  def select_a1(sheet)
+    arrange_active_sheet sheet {|s| s.Range("A1".Select)}
+  end
   # 左上にスクロールします
+  def scroll_to_a1(sheet)
+    visible = sheet.visible
+    visible = -1
+    sheet.Activate
+    window = sheet.Parent.Windows(1)
+    window.ScrollRow = 1
+    window.ScrollColumn = 1
+    sheet.Visible = visible
+  end
   # 拡大率を100%にします
+  def resize_to_100_percent(sheet)
+    visible = sheet.Visible
+    visible = -1
+    sheet.Activate
+    window = sheet.Parent.Windows(1)
+    window.Zoom = 100
+    sheet.Visible = visible
+  end
+  
+  def delete_auto_filter(sheet)
+    sheet.AutoFilterMode = 0
+  end
+  
   def arrange_worksheet!(sheet, log = false)
     sheet.AutoFilterMode = 0
     visible = sheet.visible
@@ -75,4 +100,16 @@ module ArrangeExcel
     arrange_excel_files([file_name], log)
   end
   
+  private
+    def arrange_active_sheet(sheet, &block)
+      visible = sheet.visible
+      visible = -1
+      sheet.Activate
+      yield(sheet)
+      sheet.Visible = visible
+    end
+    
+    def active_window(sheet)
+      sheet.Parent.Windows(1)
+    end
 end
