@@ -14,13 +14,12 @@ WIN32OLEを使用してExcelのワークブックやワークシートに以下�
 
 ### ファイル名
 
-arrange_excel.exe.rb
+/bin/arrange_excel.exe.rb
 
 ### 必須
 
 - Windows OS
 - Excelアプリケーション
-- arrange_excel.rb(同じディレクトリに配置する)
 - Rubyが実行できる環境(Rubyコマンドプロンプト、Rubyを入れたCygwin等)
 
 ### コマンド例
